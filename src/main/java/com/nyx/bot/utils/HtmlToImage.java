@@ -119,7 +119,7 @@ public class HtmlToImage {
             html = new StringBuilder(html).replace(html.indexOf("<w>"), html.indexOf("</w>") + 4, "").toString().trim();
         }
         html = html.replaceAll("/css/{0,}", "./css/")
-                .replaceAll("/img/{0,}", "./img/");
+                   .replaceAll("/img/{0,}", "./img/");
         StringBuilder str = getBuilder(html, hint);
         return str.toString();
     }
@@ -128,8 +128,8 @@ public class HtmlToImage {
     private static StringBuilder getBuilder(String html, Hint hint) {
         StringBuilder str = new StringBuilder(html);
         if (str.indexOf("</body>") > 1) {
-            String imageHtml = "<div class=\"foot-by\" style=\"position: absolute; bottom: 0; left: 0; opacity: 0.6;\">\n" +
-                               "\t<img src=\"http://150.138.77.122:35010/down/Eqf51LLofXNL.png\" alt=\"Neko Acse\" />\n" +
+            String imageHtml = "<div class=\"foot-by\" style=\"position: fixed; bottom: 0; right: 0; opacity: 0.3;\">\n" +
+                               "\t<img src=\"http://150.138.77.122:35010/down/Eqf51LLofXNL.png\" alt=\"Neko Acse\" style=\"max-width: 100%; height: auto;\" />\n" +
                                (hint != null ? "\t" + hint.getHint() + "\n" : "") +
                                "</div>\n";
             str.insert(str.indexOf("</body>"), imageHtml);
