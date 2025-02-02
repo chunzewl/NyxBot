@@ -17,10 +17,5 @@ public class HelpCode {
                 bot, event);
         bot.sendMsg(event,
                 Msg.builder().imgBase64(bytes.getFile()).build(), false);
-        bot.sendMsg(event, Msg.builder()
-                .text("指令使用方法请查看以下文档：https://kingprimes.top/posts/1bb16eb")
-                .build(), false);
-
-
     }
 }
