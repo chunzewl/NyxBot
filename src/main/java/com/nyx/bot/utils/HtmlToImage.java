@@ -130,15 +130,23 @@ public class HtmlToImage {
         return str.toString();
     }
 
-    @NotNull
+        @NotNull
     private static StringBuilder getBuilder(String html, Hint hint) {
         StringBuilder str = new StringBuilder(html);
         if (str.indexOf("</body>") > 1) {
-            String imageHtml = "<div class=\"foot-by\" style=\"position: fixed; bottom: 0; right: 0; opacity: 0.3;\">\n" +
-                               "\t<img src=\"http://150.138.77.122:35010/down/Eqf51LLofXNL.png\" alt=\"Neko Acse\" style=\"max-width: 100%; height: auto;\" />\n" +
-                               (hint != null ? "\t" + hint.getHint() + "\n" : "") +
-                               "</div>\n";
-            str.insert(str.indexOf("</body>"), imageHtml);
+            if (hint != null) {
+                str.insert(str.indexOf("</body>"), "<div class=\"foot-by\">\n" +
+                        "\t-Neko Acse-\n" +
+                        "\t" +
+                        hint.getHint() +
+                        "\n</div>\n");
+            } else {
+                str.insert(str.indexOf("</body>"), """
+                        <div class="foot-by">
+                        \t-Neko Acse-\n
+                        </div>
+                        """);
+            }
         }
         return str;
     }
