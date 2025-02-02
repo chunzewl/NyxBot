@@ -24,9 +24,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-
 public class HtmlToImage {
-
 
     public static final String HTML_PATH = "./DataSource/Template/";
 
@@ -43,9 +41,7 @@ public class HtmlToImage {
             SharedContext sharedContext = g2r.getSharedContext();
             //设置图片清晰度
             sharedContext.setDPI(72);
-
             sharedContext.setDotsPerPixel(2);
-
             //设置字体
             getFontInputStream().forEach(sharedContext::setFontMapping);
 
@@ -79,7 +75,6 @@ public class HtmlToImage {
                 } else {
                     fontMap.put(node.get("name").asText(), Font.createFont(Font.TRUETYPE_FONT, new File(HTML_PATH + "css/" + node.get("src").asText())));
                 }
-
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -133,19 +128,11 @@ public class HtmlToImage {
     private static StringBuilder getBuilder(String html, Hint hint) {
         StringBuilder str = new StringBuilder(html);
         if (str.indexOf("</body>") > 1) {
-            if (hint != null) {
-                str.insert(str.indexOf("</body>"), "<div class=\"foot-by\">\n" +
-                        "\t-Neko Acse-\n" +
-                        "\t" +
-                        hint.getHint() +
-                        "\n</div>\n");
-            } else {
-                str.insert(str.indexOf("</body>"), """
-                        <div class="foot-by">
-                        \t-Neko Acse-\n
-                        </div>
-                        """);
-            }
+            String imageHtml = "<div class=\"foot-by\" style=\"position: absolute; bottom: 0; left: 0; opacity: 0.6;\">\n" +
+                               "\t<img src=\"http://150.138.77.122:35010/down/Eqf51LLofXNL.png\" alt=\"Neko Acse\" />\n" +
+                               (hint != null ? "\t" + hint.getHint() + "\n" : "") +
+                               "</div>\n";
+            str.insert(str.indexOf("</body>"), imageHtml);
         }
         return str;
     }
@@ -211,7 +198,6 @@ public class HtmlToImage {
         int width = getWidth(html);
         html = outH(html);
         return tmpHtmlToImageByteArray(html, width);
-
     }
 
     /**
@@ -227,5 +213,4 @@ public class HtmlToImage {
         html = outH(html);
         return tmpHtmlToImageByteArray(html, width);
     }
-
 }
