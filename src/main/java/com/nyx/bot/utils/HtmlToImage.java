@@ -89,15 +89,21 @@ public class HtmlToImage {
      * @return 宽度
      */
     private static int getWidth(String html) {
-        Document doc = Jsoup.parse(html);
-        int width = 1000;
-        //判断是否添加宽度标签
-        if (!doc.getElementsByTag("w").isEmpty()) {
-            String num = doc.getElementsByTag("w").text();
-            if (MatcherUtils.isNumber(num)) width = Integer.parseInt(num);
-        }
-        return width;
+    Document doc = Jsoup.parse(html);
+    // 使用算法来计算自适应宽度，比如根据内容的最大宽度或其他逻辑
+    int width = 1000; // 默认宽度
+
+    // 举个例子，我们可以计算文本内容的长度来决定宽度
+    String bodyText = doc.body().text();
+    if (!bodyText.isEmpty()) {
+        // 这里假设每个字符大约占 10 像素
+        width = Math.max(width, bodyText.length() * 10);
     }
+    
+    // 可以加入更复杂的逻辑，比如检查特定元素的宽度等
+
+    return width;
+}
 
     /**
      * 删除不相干的字段
